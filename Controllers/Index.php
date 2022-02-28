@@ -4,8 +4,13 @@ namespace Controllers;
 
 class Index
 {
-    public function check()
+    public function json()
     {
-        echo 'check controller action';
+        return response()->json(['checkKey' => 'checkValue']);
+    }
+
+    public function view()
+    {
+        return view('main');
     }
 }

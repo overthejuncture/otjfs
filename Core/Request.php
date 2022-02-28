@@ -9,6 +9,7 @@ class Request extends Singleton
 
     public function __construct()
     {
+        parent::__construct();
         $serv = $_SERVER;
         $this->method = mb_strtolower($serv['REQUEST_METHOD']);
         $this->uri = $serv['REQUEST_URI'];
@@ -17,7 +18,7 @@ class Request extends Singleton
     /**
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }

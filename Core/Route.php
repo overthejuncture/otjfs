@@ -4,12 +4,22 @@ namespace Core;
 
 use Closure;
 use Exception;
-use function dd;
 
 class Route extends Singleton
 {
-    public function __construct()
+    /**
+     * @var BaseResponse данные, которые возвращает контроллер или коллбэк
+     */
+    protected $response;
+    /**
+     * @var Request
+     */
+    private $request;
+
+    public function __construct(Request $request)
     {
+        parent::__construct();
+        $this->request = $request;
     }
 
     /**
@@ -20,25 +30,35 @@ class Route extends Singleton
      */
     public static function get($uri, $action)
     {
-        if (Request::getInstance()->getMethod() !== 'get' || Request::getInstance()->getUri() !== $uri) {
+        /**
+         *TODO чтобы после срабатывания какого то пути другие не рассматривались,
+         * переделать на считывание файла с путями
+         */
+        if (isset(static::getInstance()->response))
             return;
-        }
-        if (!is_callable($action) && !(is_array($action) && count($action) === 2)) {
-            throw new Exception('action is not correct');
-        }
-        if (is_callable($action)) {
-            $action();
+
+        if (static::getInstance()->request->getMethod() !== 'get' || static::getInstance()->request->getUri() !== $uri)
             return;
+
+        if (!is_callable($action))
+            throw new Exception('Action should be callable');
+
+        if ($action instanceof Closure) {
+            $action = function() use ($action) {
+                return ClosureResponse::getInstance($action);
+            };
         }
-        static::triggerControllerAction($action);
+
+        if (is_callable($action))
+            static::getInstance()->response = $action();
+
+        if (!(static::getInstance()->response instanceof BaseResponse)) {
+            throw new Exception('Controller must return response of class ' . BaseResponse::class);
+        }
     }
 
-    private static function triggerControllerAction(array $action)
+    public function getResponse(): BaseResponse
     {
-        $controllerClass = $action[0];
-        dd($controllerClass);
-        $controllerMethod = $action[1];
-        $controller = new $controllerClass();
-        $controller->$controllerMethod();
+        return $this->response;
     }
 }

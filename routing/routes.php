@@ -5,4 +5,6 @@ use Core\Route;
 Route::get('/', function () {
     echo 'index route closure';
 });
-Route::get('/check', [Controllers\Index::class, 'check']);
+Route::get('/json', [Controllers\Index::class, 'json']);
+
+Route::get('/view', [Controllers\Index::class, 'view']);
