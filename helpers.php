@@ -25,3 +25,8 @@ function view(string $path, $data = [])
 {
     return response()->view($path, $data);
 }
+
+function basePath(): string
+{
+    return __DIR__ . '/';
+}
