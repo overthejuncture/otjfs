@@ -1,2 +1,5 @@
 <?php
-echo 'start of main layout';
+/**
+ * @var $viewDataKey
+ */
+echo 'start of main layout, $viewDataKey = ' . $viewDataKey;

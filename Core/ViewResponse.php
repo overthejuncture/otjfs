@@ -11,7 +11,7 @@ class ViewResponse extends BaseResponse
 
     private $basePath = 'layouts/';
 
-    public function __construct(string $path, $data = [])
+    public function __construct(string $path, array $data = [])
     {
         parent::__construct($data);
         $this->path = $path . '.php';
@@ -26,6 +26,7 @@ class ViewResponse extends BaseResponse
     private function getViewFile()
     {
         ob_start();
+        extract($this->data);
         include_once(basePath() . $this->basePath . $this->path);
         $this->data = ob_get_clean();
     }

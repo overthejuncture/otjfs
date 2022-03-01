@@ -11,6 +11,6 @@ class Index
 
     public function view()
     {
-        return view('main');
+        return view('main', ['viewDataKey' => 'viewDataValue']);
     }
 }
