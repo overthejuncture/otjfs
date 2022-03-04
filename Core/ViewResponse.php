@@ -2,32 +2,24 @@
 
 namespace Core;
 
+use Exception;
+
 class ViewResponse extends BaseResponse
 {
-    /**
-     * @var string
-     */
-    private $path;
+    private string $viewPath;
 
-    private $basePath = 'layouts/';
-
-    public function __construct(string $path, array $data = [])
+    public function __construct(string $viewPath, array $data = [])
     {
         parent::__construct($data);
-        $this->path = $path . '.php';
+        $this->viewPath= $viewPath;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function processData()
     {
         parent::processData();
-        $this->getViewFile();
-    }
-
-    private function getViewFile()
-    {
-        ob_start();
-        extract($this->data);
-        include_once(basePath() . $this->basePath . $this->path);
-        $this->data = ob_get_clean();
+        $this->body = ViewConstructor::compile($this->viewPath, $this->data);
     }
 }

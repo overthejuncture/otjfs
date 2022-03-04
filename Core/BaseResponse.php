@@ -5,6 +5,7 @@ namespace Core;
 class BaseResponse extends Singleton
 {
     protected $data;
+    protected $body;
 
     public function __construct($data)
     {
@@ -24,7 +25,7 @@ class BaseResponse extends Singleton
     {
         $this->applyHeaders();
         $this->processData();
-        echo $this->data;
+        echo $this->body;
         die();
     }
 }

@@ -1,5 +1,6 @@
 <?php
-/**
- * @var $viewDataKey
- */
-echo 'start of main layout, $viewDataKey = ' . $viewDataKey;
+/** @var \Core\View $this */
+echo 'before mainBody';
+$this->yield('mainBody');
+echo 'after mainBody';
+$this->yield('mainCheck');
