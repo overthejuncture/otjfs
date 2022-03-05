@@ -4,12 +4,11 @@ namespace Core;
 
 class View
 {
-    private array $sections = [];
+    private array $sections;
     private string $extends;
     private string $path;
     private array $data;
     private string $currentSection;
-    private string $yields;
 
     public function __construct($path, $data = [], $sections = [])
     {
@@ -48,7 +47,7 @@ class View
      */
     public function getExtends(): string
     {
-        return $this->extends;
+        return $this->extends ?? false;
     }
 
     public function yield(string $yields)
@@ -56,7 +55,6 @@ class View
         if (isset($this->sections[$yields])) {
             echo $this->sections[$yields];
         }
-        $this->yields = $yields;
     }
 
     /**

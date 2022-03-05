@@ -15,5 +15,5 @@ $this->section('mainCheck');
 ?>
     <h1>Second Section</h1>
 <?php
-echo "body of the second section";
+echo "body of the second section<br/>";
 $this->endSection();

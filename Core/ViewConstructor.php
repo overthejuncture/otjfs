@@ -16,10 +16,19 @@ class ViewConstructor
         $view = new View(static::getViewFullPath($viewPath), $data);
         $view->process();
         if ($view->getExtends()) {
-            $extendedView = new View(static::getViewFullPath($view->getExtends()), [], $view->getSections());
-            return $extendedView->process();
+            return self::processExtends($view);
         }
         return $view->process();
+    }
+
+    public static function processExtends(View $view)
+    {
+        $extendedView = new View(static::getViewFullPath($view->getExtends()), [], $view->getSections());
+        $data = $extendedView->process();
+        if ($extendedView->getExtends()) {
+            return static::processExtends($extendedView);
+        }
+        return $data;
     }
 
     public static function getViewFullPath($viewPath): string

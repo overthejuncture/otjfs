@@ -1,6 +1,10 @@
 <?php
 /** @var \Core\View $this */
-echo 'before mainBody';
+$this->extend('outer');
+$this->section('checkOuter');
+echo '<div>before mainBody</div>';
 $this->yield('mainBody');
-echo 'after mainBody';
+echo '<div>after mainBody</div>';
 $this->yield('mainCheck');
+
+$this->endSection();

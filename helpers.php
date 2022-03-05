@@ -13,6 +13,11 @@ function dd($var, $die = true)
         die();
 }
 
+function mdd($die = true)
+{
+    dd(memory_get_usage() / 1024 . 'kb', $die);
+}
+
 /**
  * @return ResponseFactory
  */
