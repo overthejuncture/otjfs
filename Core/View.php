@@ -4,17 +4,20 @@ namespace Core;
 
 class View
 {
-    private array $sections;
+    /** @var array $sections sections of this exact view */
+    private array $sections = [];
+    /** @var array $childSections sections of the view that extends this one */
+    private array $childSections;
     private string $extends;
     private string $path;
     private array $data;
     private string $currentSection;
 
-    public function __construct($path, $data = [], $sections = [])
+    public function __construct($path, $data = [], $childSections = [])
     {
         $this->path = $path;
         $this->data = $data;
-        $this->sections = $sections;
+        $this->childSections = $childSections;
     }
 
     public function process()
@@ -52,8 +55,8 @@ class View
 
     public function yield(string $yields)
     {
-        if (isset($this->sections[$yields])) {
-            echo $this->sections[$yields];
+        if (isset($this->childSections[$yields])) {
+            echo $this->childSections[$yields];
         }
     }
 

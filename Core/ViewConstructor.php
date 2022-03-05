@@ -21,7 +21,7 @@ class ViewConstructor
         return $view->process();
     }
 
-    public static function processExtends(View $view)
+    public static function processExtends(View $view): string
     {
         $extendedView = new View(static::getViewFullPath($view->getExtends()), [], $view->getSections());
         $data = $extendedView->process();
