@@ -4,6 +4,7 @@
   },
   "require": {
     "ext-json": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "ext-pdo": "*"
   }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Core\Request;
-use Core\BaseResponse;
 use Core\Route;
 
 $header = getallheaders();
