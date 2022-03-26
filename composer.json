@@ -1,6 +1,10 @@
 {
   "autoload": {
-    "psr-4": {"Controllers\\": "Controllers/", "Core\\": "Core/"}
+    "psr-4": {
+      "Controllers\\": "Controllers/",
+      "Core\\": "Core/",
+      "": ["migrations"]
+    }
   },
   "require": {
     "ext-json": "*",

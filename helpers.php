@@ -6,11 +6,17 @@ use Core\Singleton;
 
 function dd($var, $die = true)
 {
-    echo '<pre>';
-    var_dump($var);
-    echo '</pre>';
-    if ($die)
-        die();
+    if (php_sapi_name() !== 'cli') {
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+        if ($die)
+            die();
+    } else {
+        var_dump($var);
+        if ($die)
+            die();
+    }
 }
 
 function mdd($die = true)

@@ -16,4 +16,18 @@ class DB
         }
         return static::$pdo;
     }
+
+    public static function runSql($sql)
+    {
+        if (is_array($sql))
+            static::runSqlArray($sql);
+
+    }
+
+    private static function runSqlArray(array $sqlArray)
+    {
+        foreach ($sqlArray as $sql) {
+            static::$pdo->query($sql);
+        }
+    }
 }
