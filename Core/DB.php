@@ -17,11 +17,15 @@ class DB
         return static::$pdo;
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function runSql($sql)
     {
         if (is_array($sql))
             static::runSqlArray($sql);
-
+        /** TODO make implementation for running strings */
+        throw new \Exception('No sql string query implementation');
     }
 
     private static function runSqlArray(array $sqlArray)

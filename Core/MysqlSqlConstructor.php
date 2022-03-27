@@ -7,6 +7,8 @@ class MysqlSqlConstructor
     static array $typesOfColumns = [
         'text' => 'VARCHAR(%s)'
     ];
+
+    /** TODO custom and default primary keys */
     public static function createTableSql(string $title): string
     {
         return "CREATE TABLE $title (id int NOT NULL auto_increment, CONSTRAINT {$title}_pk PRIMARY KEY (id));";

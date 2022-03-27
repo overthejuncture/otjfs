@@ -11,6 +11,7 @@ class Blueprint
     public static int $defaultStringLength = 255;
     private array $columns = [];
     private string $tableName;
+    /** TODO apply modes */
     private int $mode;
 
     public const MODE_CREATE = 1;
@@ -21,6 +22,7 @@ class Blueprint
         $this->tableName = $tableName;
     }
 
+    /** TODO make other column types */
     public function text(string $name, int $length = null)
     {
         $length = $length ?: static::$defaultStringLength;
