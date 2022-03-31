@@ -49,12 +49,33 @@ class Route extends Singleton
             };
         }
 
-        if (is_callable($action))
-            static::getInstance()->response = $action();
+        if (is_callable($action)) {
+            if (static::isControllerAction($action)) {
+                static::getInstance()->response = static::runControllerAction($action);
+            } else {
+                static::getInstance()->response = $action();
+            }
+        }
 
         if (!(static::getInstance()->response instanceof BaseResponse)) {
             throw new Exception('Controller must return response of class ' . BaseResponse::class);
         }
+    }
+
+    public static function isControllerAction($callable): bool
+    {
+        return is_array($callable);
+    }
+
+    private static function runControllerAction($action)
+    {
+        $controller = static::createController($action[0]);
+        return $controller->{$action[1]}();
+    }
+
+    private static function createController($controller)
+    {
+        return new $controller();
     }
 
     public function getResponse(): BaseResponse
