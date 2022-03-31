@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Exception;
+
 class View
 {
     /** @var array $sections sections of this exact view */
@@ -20,8 +22,14 @@ class View
         $this->childSections = $childSections;
     }
 
+    /**
+     * @throws Exception
+     */
     public function process()
     {
+        if (!file_exists($this->path)) {
+            throw new Exception("No file found for view $this->path");
+        }
         extract($this->data);
         ob_start();
         include $this->path;

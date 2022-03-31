@@ -1,0 +1,7 @@
+migration files are just classes with up() and down().
+
+inside there is a static function of a Schema class.
+Function defines operation (Create table, change column, etc).
+Operation should have callback parameter. It should receive a $blueprint.
+$blueprint is a class, that contains instructions of operation. Like text(),
+which means that a column with a varchar type should be created.

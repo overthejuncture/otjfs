@@ -8,3 +8,5 @@ Route::get('/', function () {
 Route::get('/json', [Controllers\Index::class, 'json']);
 
 Route::get('/view', [Controllers\Index::class, 'view']);
+
+Route::get('/todos', [Controllers\TodosController::class, 'index']);

@@ -1,5 +1,5 @@
-<?php
-echo "start of outer layout<br/>";
-/** @var \Core\View $this */
-$this->yield('checkOuter');
-echo "end of outer layout<br/>";
+<?php /** @var \Core\View $this */ ?>
+
+<body>
+<?php $this->yield('body'); ?>
+</body>
