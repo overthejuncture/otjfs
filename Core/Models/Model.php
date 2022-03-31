@@ -7,18 +7,21 @@ use PDO;
 
 class Model
 {
-    public string $name;
-    public PDO $conn;
+    private string $name;
+    private PDO $conn;
 
-    public function __construct($modelName)
+    public function __construct()
     {
-        $this->name = $modelName;
+        if (!isset($this->name)) {
+            $this->name = $modelName ?? static::makeNameFromStaticClass();
+        }
         $this->conn = DB::getConnection();
     }
 
-    public static function factory($modelName): Model
+    private static function makeNameFromStaticClass(): string
     {
-        return new static($modelName);
+        $array = explode('\\', static::class);
+        return mb_strtolower(array_pop($array)) . 's';
     }
 
     public function getAll()
