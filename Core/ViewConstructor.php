@@ -9,24 +9,28 @@ class ViewConstructor
     private static string $basePath = 'layouts/';
 
     /**
+     * Compiles views from the top one down by extended views chain.
      * @throws Exception
      */
     public static function compile($viewPath, $data = []) : string
     {
         $view = new View(static::getViewFullPath($viewPath), $data);
-        $view->process();
-        if ($view->getExtends()) {
-            return self::processExtends($view);
+        $data = $view->process();
+        if ($view->getExtendedView()) {
+            return self::processExtendedView($view);
         }
-        return $view->process();
+        return $data;
     }
 
-    public static function processExtends(View $view): string
+    /**
+     * @throws Exception
+     */
+    public static function processExtendedView(View $view): string
     {
-        $extendedView = new View(static::getViewFullPath($view->getExtends()), [], $view->getSections());
+        $extendedView = new View(static::getViewFullPath($view->getExtendedView()), [], $view->getSections());
         $data = $extendedView->process();
-        if ($extendedView->getExtends()) {
-            return static::processExtends($extendedView);
+        if ($extendedView->getExtendedView()) {
+            return static::processExtendedView($extendedView);
         }
         return $data;
     }

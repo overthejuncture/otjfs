@@ -56,7 +56,7 @@ class View
     /**
      * @return string
      */
-    public function getExtends(): string
+    public function getExtendedView(): string
     {
         return $this->extends ?? false;
     }
