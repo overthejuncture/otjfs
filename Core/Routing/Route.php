@@ -1,8 +1,12 @@
 <?php
 
-namespace Core;
+namespace Core\Routing;
 
 use Closure;
+use Core\Requests\Request;
+use Core\Responses\BaseResponse;
+use Core\Responses\ClosureResponse;
+use Core\Singleton;
 use Exception;
 
 class Route extends Singleton

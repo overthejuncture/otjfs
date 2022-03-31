@@ -1,5 +1,5 @@
 <?php
-/** @var $this Core\View */
+/** @var $this \Core\Routing\View */
 /** @var array $data */
 $this->extend('main');
 $this->section('mainBody');

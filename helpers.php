@@ -1,8 +1,6 @@
 <?php
 
-use Core\BaseResponse;
-use Core\ResponseFactory;
-use Core\Singleton;
+use Core\Responses\ResponseFactory;
 
 function dd($var, $die = true)
 {

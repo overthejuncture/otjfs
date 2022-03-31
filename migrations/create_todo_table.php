@@ -1,6 +1,6 @@
 <?php
 
-use Core\Blueprint;
+use Core\Database\Blueprint;
 use Core\Migration;
 use Core\Schema;
 

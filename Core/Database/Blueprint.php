@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
+
+use Core\Column;
 
 /**
  * Class for keeping operations with database.

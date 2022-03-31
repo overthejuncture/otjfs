@@ -1,7 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Models;
 
+use Core\Database\DB;
 use PDO;
 
 class Model

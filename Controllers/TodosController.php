@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Core\Model;
+use Core\Models\Model;
 
 class TodosController
 {

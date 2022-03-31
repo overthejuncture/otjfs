@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Requests;
+
+use Core\Singleton;
 
 class Request extends Singleton
 {

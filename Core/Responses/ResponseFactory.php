@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Responses;
+
+use Core\Singleton;
 
 class ResponseFactory extends Singleton
 {

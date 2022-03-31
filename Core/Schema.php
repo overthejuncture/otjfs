@@ -2,6 +2,10 @@
 
 namespace Core;
 
+use Core\Database\Blueprint;
+use Core\Database\DB;
+use Core\Database\MysqlSqlConstructor;
+
 class Schema
 {
     public function __construct()

@@ -1,4 +1,4 @@
-<?php /** @var \Core\View $this */ ?>
+<?php /** @var \Core\Routing\View $this */ ?>
 
 <body>
 <?php $this->yield('body'); ?>

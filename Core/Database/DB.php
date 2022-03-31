@@ -1,8 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
 
 use PDO;
+use function dd;
 
 class DB
 {

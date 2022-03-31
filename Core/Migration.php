@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Database\DB;
+
 abstract class Migration
 {
     private \PDO $db;
