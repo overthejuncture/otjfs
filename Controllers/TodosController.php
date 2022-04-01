@@ -8,11 +8,7 @@ class TodosController
 {
     public function index()
     {
-        $model = new Todo();
-//        dd($model);
-        $data = $model->getAll();
-
-
-        return view('todos/index', ['data' => $data]);
+        $todos = new Todo();
+        return view('todos/index', ['data' => $todos->getAll()]);
     }
 }

@@ -7,6 +7,6 @@ $this->section('mainBody');
 <h1>TODOS</h1>
 <?php
 foreach ($data as $todo) {
-    echo "<div>$todo->body</div>";
+    echo "<div>" . $todo['body'] . "</div>";
 }
 $this->endSection();

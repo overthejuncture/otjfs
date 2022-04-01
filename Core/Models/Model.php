@@ -9,6 +9,7 @@ class Model
 {
     private string $name;
     private PDO $conn;
+    private array $attributes = [];
 
     public function __construct()
     {
@@ -28,5 +29,16 @@ class Model
     {
         $stmt = $this->conn->query("SELECT * from " . $this->name);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function save()
+    {
+        $query = "INSERT INTO " . $this->name . " (body) VALUES ('" . implode("','", $this->attributes) . "')";
+        $stmt = $this->conn->query($query);
+    }
+
+    public function __set($key, $value)
+    {
+        $this->attributes[$key] = $value;
     }
 }
