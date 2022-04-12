@@ -7,9 +7,9 @@ use PDO;
 
 class Model
 {
-    private string $name;
-    private PDO $conn;
-    private array $attributes = [];
+    protected string $name;
+    protected PDO $conn;
+    protected array $attributes = [];
 
     public function __construct()
     {
@@ -40,5 +40,10 @@ class Model
     public function __set($key, $value)
     {
         $this->attributes[$key] = $value;
+    }
+
+    public function __get($key)
+    {
+        return $this->attributes[$key];
     }
 }
