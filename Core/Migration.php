@@ -13,13 +13,7 @@ abstract class Migration
         $this->db = DB::getConnection();
     }
 
-    public function up()
-    {
+    abstract public function up();
 
-    }
-
-    public function down()
-    {
-
-    }
+    abstract public function down();
 }

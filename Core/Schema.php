@@ -32,4 +32,11 @@ class Schema
         $sql = MysqlSqlConstructor::dropTableSql($tableName);
         DB::runSql([$sql]);
     }
+
+    public static function table(string $tableName, callable $callback)
+    {
+        $blueprint = new Blueprint($tableName);
+        $callback($blueprint);
+        DB::runSql([...$blueprint->toSql()]);
+    }
 }

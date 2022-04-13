@@ -4,9 +4,9 @@ namespace Core;
 
 class Column
 {
-    public string $name;
-    public string $type;
-    public array $params;
+    protected string $name;
+    protected string $type;
+    protected array $params;
 
     public function __construct(string $type, string $name, array $params)
     {
@@ -17,5 +17,20 @@ class Column
         $this->name = $name;
         $this->type = $type;
         $this->params = $params;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getParams(): array
+    {
+        return $this->params;
     }
 }

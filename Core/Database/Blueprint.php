@@ -29,6 +29,11 @@ class Blueprint
         $this->columns[] = new Column('text', $name, ['length' => $length]);
     }
 
+    public function boolean(string $name)
+    {
+        $this->columns[] = new Column('boolean', $name, []);
+    }
+
     public function getColumns(): array
     {
         return $this->columns;
