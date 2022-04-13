@@ -15,4 +15,9 @@ class create_todo_table extends Migration
             $blueprint->text('body');
         });
     }
+
+    public function down()
+    {
+        Schema::drop('todos');
+    }
 }

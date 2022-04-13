@@ -20,4 +20,9 @@ class MysqlSqlConstructor extends SqlConstructor
     {
         return "ALTER TABLE $table ADD COLUMN $column->name " . sprintf(static::$typesOfColumns[$column->type], $column->params['length']) . ';';
     }
+
+    public static function dropTableSql(string $tableName): string
+    {
+        return "DROP TABLE $tableName";
+    }
 }

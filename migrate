@@ -2,8 +2,15 @@
 
 include_once './helpers.php';
 include_once './vendor/autoload.php';
+array_shift($argv);
 
+$params = $argv;
+$migration = new create_todo_table();
+
+if (!empty($params[0]) && $params[0] === '--down') {
+    $migration->down();
+    return;
+}
 /** TODO read migrations one by one */
 /** TODO table for keeping migrations info */
-$migration = new create_todo_table();
 $migration->up();

@@ -18,7 +18,7 @@ abstract class Migration
 
     }
 
-    protected function down()
+    public function down()
     {
 
     }

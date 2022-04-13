@@ -26,4 +26,10 @@ class Schema
         $createTableSql = MysqlSqlConstructor::createTableSql($tableName);
         DB::runSql([$createTableSql, ...$blueprint->toSql()]);
     }
+
+    public static function drop(string $tableName)
+    {
+        $sql = MysqlSqlConstructor::dropTableSql($tableName);
+        DB::runSql([$sql]);
+    }
 }
