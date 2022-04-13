@@ -41,10 +41,21 @@ class View
         $this->extends = $extendedViewName;
     }
 
-    public function section(string $section)
+    /**
+     *
+     * @param string $section
+     * @param string $data If this is provided than this is basically ends the section
+     * with this data provided to the section. No endSection() needed after that.
+     * @return void
+     */
+    public function section(string $section, string $data = '')
     {
-        ob_start();
-        $this->currentSection = $section;
+        if ($data) {
+            $this->sections[$section] = $data;
+        } else {
+            ob_start();
+            $this->currentSection = $section;
+        }
     }
 
     public function endSection()

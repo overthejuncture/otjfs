@@ -10,3 +10,5 @@ foreach ($data as $todo) {
     echo "<div>" . $todo['body'] . "</div>";
 }
 $this->endSection();
+$this->section('title', 'TODOS');
+

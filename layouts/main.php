@@ -1,8 +1,8 @@
 <?php
 /** @var \Core\Routing\View $this */
-$this->extend('outer');
-$this->section('body');
+?>
+    <head>
+        <title><?php $this->yield('title'); ?></title>
+    </head>
+<?php
 $this->yield('mainBody');
-$this->yield('mainCheck');
-
-$this->endSection();

@@ -10,10 +10,3 @@ $this->section('mainBody');
 echo "body<br>";
 echo $viewDataKey;
 $this->endSection();
-
-$this->section('mainCheck');
-?>
-    <h1>Second Section</h1>
-<?php
-echo "body of the second section<br/>";
-$this->endSection();
