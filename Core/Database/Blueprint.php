@@ -23,15 +23,23 @@ class Blueprint
     /**
      * TODO make other column types
      */
-    public function text(string $name, int $length = null)
+    public function text(string $name, int $length = null): Column
     {
-        $length = $length ?: static::$defaultStringLength;
-        $this->columns[] = new Column('text', $name, ['length' => $length]);
+        return $this->addColumn('text', $name,
+            ['length' => $length ?: static::$defaultStringLength]
+        );
     }
 
-    public function boolean(string $name)
+    public function boolean(string $name): Column
     {
-        $this->columns[] = new Column('boolean', $name, []);
+        return $this->addColumn('boolean', $name);
+    }
+
+    protected function addColumn(string $type, string $name, array $params = []): Column
+    {
+        $column = new Column($type, $name, $params);
+        $this->columns[] = $column;
+        return $column;
     }
 
     public function getColumns(): array

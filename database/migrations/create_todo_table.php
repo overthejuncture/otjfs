@@ -12,7 +12,7 @@ class create_todo_table extends Migration
     public function up()
     {
         Schema::create('todos', function (Blueprint $blueprint) {
-            $blueprint->text('body');
+            $blueprint->text('body', 10000)->nullable(false);
         });
     }
 
