@@ -2,27 +2,18 @@
 
 namespace Core;
 
-use Exception;
-
-class Column extends Singleton
+class Column
 {
-    private const allowedTypes = [
-        'text'
-    ];
-
     public string $name;
     public string $type;
     public array $params;
 
-    /**
-     * @throws Exception
-     */
-    public function __construct(string $type, string $name, $params)
+    public function __construct(string $type, string $name, array $params)
     {
-        parent::__construct();
-        if (!in_array($type, static::allowedTypes)) {
-            throw new Exception("Type $type is not defined as column type. Try " . implode(', ', static::allowedTypes));
-        }
+//        if (!in_array($type, static::allowedTypes)) {
+//             TODO custom exception
+//            throw new Exception("Type $type is not defined as column type. Try " . implode(', ', static::allowedTypes));
+//        }
         $this->name = $name;
         $this->type = $type;
         $this->params = $params;

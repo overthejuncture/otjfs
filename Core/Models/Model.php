@@ -11,7 +11,7 @@ class Model
     protected PDO $conn;
     protected array $attributes = [];
 
-    public function __construct()
+    public function __construct($modelName = null)
     {
         if (!isset($this->name)) {
             $this->name = $modelName ?? static::makeNameFromStaticClass();

@@ -3,7 +3,6 @@
 namespace Core\Routing;
 
 use Exception;
-use function basePath;
 
 class ViewConstructor
 {

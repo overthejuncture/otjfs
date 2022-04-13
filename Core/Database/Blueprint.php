@@ -5,30 +5,28 @@ namespace Core\Database;
 use Core\Column;
 
 /**
- * Class for keeping operations with database.
+ * Class for keeping commands with database.
  * Mostly or only for migrations.
+ * (Right now only used for keeping columns info)
  */
 class Blueprint
 {
-    public static int $defaultStringLength = 255;
-    private array $columns = [];
-    private string $tableName;
-    /** TODO apply modes */
-    private int $mode;
+    protected static int $defaultStringLength = 255;
+    protected array $columns = [];
+    protected string $tableName;
 
-    public const MODE_CREATE = 1;
-
-    public function __construct(int $mode, string $tableName)
+    public function __construct(string $tableName)
     {
-        $this->mode = $mode;
         $this->tableName = $tableName;
     }
 
-    /** TODO make other column types */
+    /**
+     * TODO make other column types
+     */
     public function text(string $name, int $length = null)
     {
         $length = $length ?: static::$defaultStringLength;
-        $this->columns[] = Column::getInstance('text', $name, ['length' => $length]);
+        $this->columns[] = new Column('text', $name, ['length' => $length]);
     }
 
     public function getColumns(): array
@@ -36,10 +34,11 @@ class Blueprint
         return $this->columns;
     }
 
-    public function toSql()
+    public function toSql(): array
     {
         $sql = [];
         foreach ($this->columns as $column) {
+            // TODO sql constructor
             $sql[] = MysqlSqlConstructor::columnDefinitionToSql($this->tableName, $column);
         }
         return $sql;
