@@ -1,0 +1,4 @@
+parameters:
+    bootstrapFiles:
+        - helpers.php
+    level: 6

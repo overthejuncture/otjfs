@@ -10,5 +10,8 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pdo": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.5"
   }
 }
