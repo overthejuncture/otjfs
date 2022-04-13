@@ -3,7 +3,7 @@
     "psr-4": {
       "Controllers\\": "Controllers/",
       "Core\\": "Core/",
-      "": ["migrations"]
+      "": ["database/migrations"]
     }
   },
   "require": {
