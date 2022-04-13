@@ -20,6 +20,6 @@ class ClosureResponse extends BaseResponse
     {
         ob_start();
         ($this->data)();
-        $this->data = ob_get_clean();
+        $this->body = ob_get_clean();
     }
 }
