@@ -4,17 +4,21 @@ namespace Core\Requests;
 
 use Core\Singleton;
 
-class Request extends Singleton
+class Request
 {
-    private $method;
-    private $uri;
+    protected static string $method;
+    protected static string $uri;
 
-    public function __construct()
+    protected function __construct()
     {
-        parent::__construct();
         $serv = $_SERVER;
-        $this->method = mb_strtolower($serv['REQUEST_METHOD']);
-        $this->uri = $serv['REQUEST_URI'];
+        static::$method = mb_strtolower($serv['REQUEST_METHOD']);
+        static::$uri = $serv['REQUEST_URI'];
+    }
+
+    public static function capture(): Request
+    {
+        return new static();
     }
 
     /**
@@ -22,7 +26,7 @@ class Request extends Singleton
      */
     public function getMethod(): string
     {
-        return $this->method;
+        return static::$method;
     }
 
     /**
@@ -30,6 +34,6 @@ class Request extends Singleton
      */
     public function getUri()
     {
-        return $this->uri;
+        return static::$uri;
     }
 }
