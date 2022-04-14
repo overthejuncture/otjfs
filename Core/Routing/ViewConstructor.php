@@ -25,9 +25,9 @@ class ViewConstructor
     /**
      * @throws Exception
      */
-    public static function processExtendedView(View $view): string
+    protected static function processExtendedView(View $view): string
     {
-        $extendedView = new View(static::getViewFullPath($view->getExtendedView()), [], $view->getSections());
+        $extendedView = new View(static::getViewFullPath($view->getExtendedView()), [], $view->getSections(), $view->getStacks());
         $data = $extendedView->process();
         if ($extendedView->getExtendedView()) {
             return static::processExtendedView($extendedView);

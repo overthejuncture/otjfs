@@ -7,19 +7,21 @@ use Exception;
 class View
 {
     /** @var array $sections sections of this exact view */
-    private array $sections = [];
+    protected array $sections = [];
+    protected string $path;
+    protected array $data;
     /** @var array $childSections sections of the view that extends this one */
-    private array $childSections;
-    private string $extends;
-    private string $path;
-    private array $data;
-    private string $currentSection;
+    protected array $childSections;
+    protected string $extends;
+    protected string $currentSection;
+    protected array $stacks = [];
 
-    public function __construct($path, $data = [], $childSections = [])
+    public function __construct($path, $data = [], $childSections = [], $stacks = [])
     {
         $this->path = $path;
         $this->data = $data;
         $this->childSections = $childSections;
+        $this->stacks = $stacks;
     }
 
     /**
@@ -44,8 +46,8 @@ class View
     /**
      *
      * @param string $section
-     * @param string $data If this is provided than this is basically ends the section
-     * with this data provided to the section. No endSection() needed after that.
+     * @param string $data If this is provided then this is basically ends the section
+     * with this data provided to the section -> no endSection() needed after.
      * @return void
      */
     public function section(string $section, string $data = '')
@@ -72,6 +74,13 @@ class View
         return $this->extends ?? false;
     }
 
+    /**
+     * If yield section is mentioned in extending view sections ($this->section(*yield name*)),
+     * then process this yielded section.
+     *
+     * @param string $yields
+     * @return void
+     */
     public function yield(string $yields)
     {
         if (isset($this->childSections[$yields])) {
@@ -85,5 +94,31 @@ class View
     public function getSections(): array
     {
         return $this->sections;
+    }
+
+    public function stack(string $stackName)
+    {
+        if (isset($this->stacks[$stackName]) && is_array($this->stacks[$stackName])) {
+            foreach ($this->stacks[$stackName] as $stackData) {
+                echo $stackData;
+            }
+        }
+    }
+
+    /**
+     * Push to the stack
+     *
+     * @param string $stackName
+     * @param $data
+     * @return void
+     */
+    public function push(string $stackName, $data)
+    {
+        $this->stacks[$stackName][] = $data;
+    }
+
+    public function getStacks(): array
+    {
+        return $this->stacks;
     }
 }

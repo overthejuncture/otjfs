@@ -10,5 +10,6 @@ foreach ($data as $todo) {
     echo "<div>" . $todo['body'] . "</div>";
 }
 $this->endSection();
+$this->push('head_css', "<link rel=\"stylesheet\" href=\"mystyle.css\">");
 $this->section('title', 'TODOS');
 
