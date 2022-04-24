@@ -7,19 +7,19 @@ use PDO;
 
 class Model
 {
-    protected string $name;
+    protected string $tableName;
     protected PDO $conn;
     protected array $attributes = [];
 
-    public function __construct($modelName = null)
+    public function __construct($tableName = null)
     {
-        if (!isset($this->name)) {
-            $this->name = $modelName ?? static::makeNameFromStaticClass();
+        if (!isset($this->tableName)) {
+            $this->tableName = $tableName ?? static::makeTableNameFromStaticClass();
         }
         $this->conn = DB::getConnection();
     }
 
-    private static function makeNameFromStaticClass(): string
+    private static function makeTableNameFromStaticClass(): string
     {
         $array = explode('\\', static::class);
         return mb_strtolower(array_pop($array)) . 's';
@@ -27,13 +27,13 @@ class Model
 
     public function getAll()
     {
-        $stmt = $this->conn->query("SELECT * from " . $this->name);
+        $stmt = $this->conn->query("SELECT * from " . $this->tableName);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function save()
     {
-        $query = "INSERT INTO " . $this->name . " (body) VALUES ('" . implode("','", $this->attributes) . "')";
+        $query = "INSERT INTO " . $this->tableName . " (body) VALUES ('" . implode("','", $this->attributes) . "')";
         $stmt = $this->conn->query($query);
     }
 
