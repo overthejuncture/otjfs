@@ -8,6 +8,7 @@ class TodosController
 {
     public function index()
     {
+        // TODO make static
         $todos = new Todo();
         return view('todos/index', ['data' => $todos->getAll()]);
     }

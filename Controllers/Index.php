@@ -13,4 +13,9 @@ class Index
     {
         return view('index/index', ['viewDataKey' => 'viewDataValue']);
     }
+
+    public function test()
+    {
+
+    }
 }
