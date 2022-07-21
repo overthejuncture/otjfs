@@ -1,0 +1,47 @@
+version: '3'
+services:
+  web:
+    container_name: 'otjfs_nginx'
+    image: 'nginx:latest'
+    networks:
+      - otjfs-network
+    volumes:
+      - ./docker/configs/nginx/nginx.conf:/etc/nginx/conf.d/local-custom.conf
+      - ./docker/configs/nginx/nginx.conf:/etc/nginx/ngixn.conf:ro
+      - ./logs/nginx:/var/log/nginx/
+      - .:/var/www/otjfs.local
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "80:80"
+    links:
+      - php
+  php:
+    container_name: 'otjfs_php'
+    build:
+      dockerfile: ./docker/php/Dockerfile
+      context: .
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    networks:
+      - otjfs-network
+    volumes:
+      - .:/var/www/otjfs.local
+    links:
+      - mysql
+  mysql:
+    container_name: 'otjfs_mysql'
+    image: 'mysql:5.7.37'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'secret'
+    volumes:
+      - mysql_otjfs_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - otjfs-network
+networks:
+  otjfs-network:
+    external: true
+volumes:
+  mysql_otjfs_volume: null
