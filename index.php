@@ -4,14 +4,16 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include 'autoload.php';
 
-use Core\Requests\Request;
-use Core\Routing\Route;
+require_once './helpers.php';
+
+use Core\Container\ServiceContainer;
+use Core\Kernel;
 use Core\Routing\Router;
+
+$sc = new ServiceContainer();
 
 $header = getallheaders();
 
-//require_once './vendor/autoload.php';
-require_once './helpers.php';
 $router = new Router('routing/routes.php');
-$kernel = new \Core\Kernel($router);
+$kernel = new Kernel($sc, $router);
 $kernel->handle($request = Core\Requests\Request::capture());

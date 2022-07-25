@@ -13,7 +13,7 @@ class DB
     public static function getConnection(): PDO
     {
         if (!isset(static::$pdo)) {
-            static::$pdo = new PDO('mysql:host=otj_mysql;dbname=otjfs;charset=utf8mb4', 'root', 'secret');
+            static::$pdo = new PDO('mysql:host=otjfs_mysql;dbname=otjfs;charset=utf8mb4', 'root', 'secret');
         }
         return static::$pdo;
     }

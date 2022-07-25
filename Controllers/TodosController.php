@@ -6,10 +6,12 @@ use Core\Models\Todo;
 
 class TodosController
 {
-    public function index()
+    /**
+     * @param Todo $todos
+     * @return \Core\Responses\ViewResponse|\Core\Singleton
+     */
+    public function index(Todo $todos)
     {
-        // TODO make static
-        $todos = new Todo();
         return view('todos/index', ['data' => $todos->getAll()]);
     }
 }

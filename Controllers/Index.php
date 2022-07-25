@@ -4,7 +4,7 @@ namespace Controllers;
 
 class Index
 {
-    public static function json()
+    public function json()
     {
         return response()->json(['checkKey' => 'checkValue']);
     }

@@ -2,16 +2,19 @@
 
 namespace Core;
 
+use Core\Container\ServiceContainer;
 use Core\Requests\Request;
-use Core\Routing\Router;
 use Core\Routing\RouteDispatcher;
+use Core\Routing\RouterInterface;
 
 class Kernel
 {
-    private Router $router;
+    private RouterInterface $router;
+    private ServiceContainer $container;
 
-    public function __construct(Router $router)
+    public function __construct(ServiceContainer $container, RouterInterface $router)
     {
+        $this->container = $container;
         $this->router = $router;
     }
 
@@ -21,12 +24,8 @@ class Kernel
         $method = $request->getMethod();
         $this->router->readRoutes();
         $action = $this->router->match($uri, $method);
-//        var_dump($action);
-//        die();
-        $dispatcher = new RouteDispatcher($action);
+        $dispatcher = new RouteDispatcher($this->container, $action);
         $response = $dispatcher->dispatch();
         $response->send();
-
-//        var_dump($action);
     }
 }

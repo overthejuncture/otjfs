@@ -33,7 +33,7 @@ services:
     container_name: 'otjfs_mysql'
     image: 'mysql:5.7.37'
     environment:
-      MYSQL_ROOT_PASSWORD: 'secret'
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mysql_otjfs_volume:/var/lib/mysql
     ports:

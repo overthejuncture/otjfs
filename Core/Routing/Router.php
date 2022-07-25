@@ -2,7 +2,7 @@
 
 namespace Core\Routing;
 
-class Router
+class Router implements RouterInterface
 {
     private string $path;
     private array $routes = [];

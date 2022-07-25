@@ -6,8 +6,7 @@ class Psr4Autoloader
 {
     static public array $config = [];
 
-    // todo check what if start of two namespaces match in config
-    static public function load($class)
+    static public function load($class): void
     {
         $fullPath = dirname(__DIR__);
         $restOfClass = '';
