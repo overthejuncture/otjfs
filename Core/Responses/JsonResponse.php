@@ -13,5 +13,6 @@ class JsonResponse extends BaseResponse
     protected function processData()
     {
         $this->data = json_encode($this->data);
+        $this->body = $this->data;
     }
 }

@@ -27,7 +27,7 @@ class BaseResponse extends Singleton
     {
         $this->applyHeaders();
         $this->processData();
+        // TODO there is confusion between the use of `body` and `data` in $this
         echo $this->body;
-        die();
     }
 }

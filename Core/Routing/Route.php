@@ -3,72 +3,45 @@
 namespace Core\Routing;
 
 use Closure;
-use Core\Requests\Request;
 use Core\Responses\BaseResponse;
 use Core\Responses\ClosureResponse;
-use Core\Singleton;
-use Exception;
 
-class Route extends Singleton
+/**
+ * Class Route
+ *
+ * Class-config, containing routing.
+ * TODO interface
+ */
+class Route
 {
-    /**
-     * @var BaseResponse данные, которые возвращает контроллер или коллбэк
-     */
-    protected $response;
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Request $request)
-    {
-        parent::__construct();
-        $this->request = $request;
-    }
+    private static $get = [];
+    private static $post = [];
 
     /**
      * @param $uri
-     * @param Closure|array $action
+     * @param array|Closure $action
      * @return void
-     * @throws Exception
      */
-    public static function get($uri, $action)
+    public static function get($uri, array|Closure $action)
     {
-        /**
-         *TODO чтобы после срабатывания какого то пути другие не рассматривались,
-         * переделать на считывание файла с путями
-         */
-        if (isset(static::getInstance()->response))
-            return;
-
-        if (static::getInstance()->request->getMethod() !== 'get' || static::getInstance()->request->getUri() !== $uri)
-            return;
-
-        if (!is_callable($action))
-            throw new Exception('Action should be callable');
-
-        if ($action instanceof Closure) {
-            $action = function() use ($action) {
-                return ClosureResponse::getInstance($action);
-            };
-        }
-
-        if (is_callable($action)) {
-            if (static::isControllerAction($action)) {
-                static::getInstance()->response = static::runControllerAction($action);
-            } else {
-                static::getInstance()->response = $action();
-            }
-        }
-
-        if (!(static::getInstance()->response instanceof BaseResponse)) {
-            throw new Exception('Controller must return response of class ' . BaseResponse::class);
-        }
+        self::$get[$uri] = $action;
     }
 
     public static function isControllerAction($callable): bool
     {
         return is_array($callable);
+    }
+
+    public static function getPaths()
+    {
+        return [
+            'get' => self::$get,
+        ];
+    }
+
+    public static function match(string $uri, string $method)
+    {
+        return self::${$method}[$uri];
     }
 
     private static function runControllerAction($action)
@@ -80,10 +53,5 @@ class Route extends Singleton
     private static function createController($controller)
     {
         return new $controller();
-    }
-
-    public function getResponse(): BaseResponse
-    {
-        return $this->response;
     }
 }
