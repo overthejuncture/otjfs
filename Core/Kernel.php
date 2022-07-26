@@ -18,7 +18,7 @@ class Kernel
         $this->router = $router;
     }
 
-    public function handle(Request $request)
+    public function handle(Request $request): void
     {
         $uri = $request->getUri();
         $method = $request->getMethod();

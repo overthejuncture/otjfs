@@ -2,13 +2,17 @@
 
 namespace Core\Routing;
 
+use Closure;
 use Core\Container\ServiceContainer;
 use Core\Responses\ClosureResponse;
 use ReflectionException;
 
 class RouteDispatcher
 {
-    private $action;
+    /**
+     * @var array<class-string, string>|Closure
+     */
+    private array|Closure $action;
     private ServiceContainer $container;
 
     public function __construct(ServiceContainer $container, $action)
@@ -23,15 +27,10 @@ class RouteDispatcher
     public function dispatch()
     {
         // TODO remove this hack
-        if ($this->action instanceof \Closure) {
+        if ($this->action instanceof Closure) {
             return new ClosureResponse($this->action);
         }
-        $deps = $this->container->getClassMethodDependencies($this->action[0], $this->action[1]);
-        $params = [];
-        foreach ($deps as $dep) {
-            $params[] = new ($dep)();
-        }
-        $class = new ($this->action[0])();
-        return $class->{$this->action[1]}(...$params);
+        $class = $this->container->resolve($this->action[0]);
+        return $this->container->resolveMethod($class, $this->action[1]);
     }
 }

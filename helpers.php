@@ -24,19 +24,17 @@ function env($key, $default = null)
     return $return;
 }
 
-function dd($var, $die = true)
+function dd($var, $die = true): void
 {
     if (php_sapi_name() !== 'cli') {
         echo '<pre>';
         var_dump($var);
         echo '</pre>';
-        if ($die)
-            die();
     } else {
         var_dump($var);
-        if ($die)
-            die();
     }
+    if ($die)
+        die();
 }
 
 function mdd($die = true)

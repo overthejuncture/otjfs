@@ -7,9 +7,10 @@ class Router implements RouterInterface
     private string $path;
     private array $routes = [];
 
-    public function __construct(string $pathToRoutes)
+    public function __construct(array $config)
     {
-        $this->path = $pathToRoutes;
+        // TODO what if there are multiple files
+        $this->path = $config['base_path'];
     }
 
     public function readRoutes()
