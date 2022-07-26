@@ -12,8 +12,9 @@ class DB
 
     public static function getConnection(): PDO
     {
+        $config = config('db');
         if (!isset(static::$pdo)) {
-            static::$pdo = new PDO('mysql:host=otjfs_mysql;dbname=otjfs;charset=utf8mb4', 'root', 'secret');
+            static::$pdo = new PDO("{$config['connection']}:host={$config['host']};dbname={$config['db']};charset=utf8mb4", $config['user'], $config['password']);
         }
         return static::$pdo;
     }
@@ -36,5 +37,9 @@ class DB
         foreach ($sqlArray as $sql) {
             dd(static::$pdo->query($sql), false);
         }
+    }
+
+    public static function getSqlConstructor()
+    {
     }
 }
