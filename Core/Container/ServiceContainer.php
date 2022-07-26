@@ -56,12 +56,7 @@ class ServiceContainer implements ContainerInterface, DiInterface
      */
     protected function build($abstract)
     {
-        $ref = new ReflectionClass($abstract);
-        $constructor = $ref->getConstructor();
-        $constructorDeps = [];
-        if ($constructor !== null) {
-            $constructorDeps = $this->getClassMethodDependencies($abstract, '__construct');
-        }
+        $constructorDeps = $this->getClassConstructorDependencies($abstract);
         $params = [];
         foreach ($constructorDeps as $dep) {
             $params[] = $this->resolve($dep);
@@ -80,18 +75,27 @@ class ServiceContainer implements ContainerInterface, DiInterface
     }
 
     /**
-     * TODO check if constructor exists here, if not - return null or []
      * @throws ReflectionException
      */
-    public function getClassMethodDependencies(string $class, string $method)
+    protected function getClassConstructorDependencies(string $class): array
+    {
+        $ref = new ReflectionClass($class);
+        $constructor = $ref->getConstructor();
+        if ($constructor === null) {
+            return [];
+        }
+        return $this->getClassMethodDependencies($class, '__construct');
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function getClassMethodDependencies(string $class, string $method): array
     {
         $ref = new ReflectionClass($class);
 
         $params = $ref->getMethod($method)->getParameters();
         $deps = [];
-//        dd($class, false);
-//        dd($method, false);
-//        dd($params, false);
         foreach ($params as $param) {
             if (
                 $param->getType() instanceof \ReflectionNamedType
@@ -103,10 +107,5 @@ class ServiceContainer implements ContainerInterface, DiInterface
             }
         }
         return $deps;
-    }
-
-    public function getDependencies(string $class)
-    {
-        // TODO: Implement getDependencies() method.
     }
 }
