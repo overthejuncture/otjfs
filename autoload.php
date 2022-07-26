@@ -13,6 +13,10 @@ Core\Psr4Autoloader::$config = [
         'base_path'=>'Controllers',
     ],
     [
+        'prefix'=>'',
+        'base_path'=>'database/migrations/',
+    ],
+    [
         'prefix'=> "Psr\\Container",
         'base_path' => "vendor/psr/container/src/"
     ]

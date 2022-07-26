@@ -20,9 +20,7 @@ class Schema
      */
     public static function create(string $tableName, callable $callback)
     {
-        $blueprint = new Blueprint($tableName);
-        $callback($blueprint);
-        /** TODO depend on blueprints mode */
+        $blueprint = new Blueprint($tableName, $callback);
         $createTableSql = MysqlSqlConstructor::createTableSql($tableName);
         DB::runSql([$createTableSql, ...$blueprint->toSql()]);
     }
@@ -35,8 +33,7 @@ class Schema
 
     public static function table(string $tableName, callable $callback)
     {
-        $blueprint = new Blueprint($tableName);
-        $callback($blueprint);
+        $blueprint = new Blueprint($tableName, $callback);
         DB::runSql([...$blueprint->toSql()]);
     }
 }

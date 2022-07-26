@@ -12,12 +12,16 @@ use Core\Column;
 class Blueprint
 {
     protected static int $defaultStringLength = 255;
+    /** @var array<Column> $columns */
     protected array $columns = [];
     protected string $tableName;
 
-    public function __construct(string $tableName)
+    public function __construct(string $tableName, \Closure $closure = null)
     {
         $this->tableName = $tableName;
+        if ($closure) {
+            $closure($this);
+        }
     }
 
     /**
