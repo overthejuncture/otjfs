@@ -13,12 +13,12 @@ Core\Psr4Autoloader::$config = [
         'base_path'=>'Controllers',
     ],
     [
+        'prefix'=> "Psr\\Container",
+        'base_path' => "vendor/psr/container/src/"
+    ],
+    [
         'prefix'=>'',
         'base_path'=>'database/migrations/',
     ],
-    [
-        'prefix'=> "Psr\\Container",
-        'base_path' => "vendor/psr/container/src/"
-    ]
 ];
 spl_autoload_register(['Core\Psr4Autoloader', 'load']);
