@@ -15,6 +15,9 @@ class Application extends ServiceContainer
 
     protected function bindEssentials()
     {
+        $this->bind(ServiceContainer::class, function ($app) {
+            return $this;
+        });
         $this->bind(RouterInterface::class, function ($app) {
             return new Router(config('routing'));
         });
