@@ -12,7 +12,7 @@ class ViewResponse extends BaseResponse
     public function __construct(string $viewPath, array $data = [])
     {
         parent::__construct($data);
-        $this->viewPath= $viewPath;
+        $this->viewPath = $viewPath;
     }
 
     /**

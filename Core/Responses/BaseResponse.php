@@ -2,16 +2,13 @@
 
 namespace Core\Responses;
 
-use Core\Singleton;
-
-class BaseResponse extends Singleton
+class BaseResponse
 {
     protected $data;
     protected $body;
 
     public function __construct($data)
     {
-        parent::__construct();
         $this->data = $data;
     }
 

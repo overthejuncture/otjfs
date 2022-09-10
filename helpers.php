@@ -54,7 +54,7 @@ function mdd($die = true)
  */
 function response(): ResponseFactory
 {
-    return ResponseFactory::getInstance();
+    return new ResponseFactory();
 }
 
 function view(string $path, $data = [])

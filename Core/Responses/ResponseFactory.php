@@ -2,17 +2,15 @@
 
 namespace Core\Responses;
 
-use Core\Singleton;
-
-class ResponseFactory extends Singleton
+class ResponseFactory
 {
     public function json($data)
     {
-        return JsonResponse::getInstance($data);
+        return new JsonResponse($data);
     }
 
     public function view(string $path, $data = [])
     {
-        return ViewResponse::getInstance($path, $data);
+        return new ViewResponse($path, $data);
     }
 }
