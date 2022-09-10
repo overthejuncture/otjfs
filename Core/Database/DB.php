@@ -2,16 +2,19 @@
 
 namespace Core\Database;
 
+use Core\Database\Connection\Connection;
 use Core\Database\Connection\ConnectionFactory;
 use function dd;
 
 class DB
 {
-    public static function getConnection()
+    public static function getConnection(string $connection = 'default'): Connection
     {
-        $config = config('db');
-        $conn = new ConnectionFactory();
-        return $conn->createConnection($config);
+        $fullConfig = config('db');
+        if (!isset($fullConfig[$connection])) {
+            throw new \Exception('No database settings for key: ' . $connection);
+        }
+        return (new ConnectionFactory())->createConnection($fullConfig[$connection]);
     }
 
     /**

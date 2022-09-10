@@ -3,17 +3,19 @@
 namespace Core\Database\SqlConstructors;
 
 use Core\Column;
-use Core\Database\Exception;
 
 class MysqlSqlConstructor extends SqlConstructor
 {
-    static array $typesOfColumns = [
-        "text" => "VARCHAR(%s)"
-    ];
-
     public function insert($table, $values)
     {
         $sql = "insert into $table (body, done) values ('asdf', '1')";
+        return $sql;
+    }
+
+    public function select(string $table, $columns = [])
+    {
+        // TODO
+        $sql = "SELECT * FROM $table";
         return $sql;
     }
 

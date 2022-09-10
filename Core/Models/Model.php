@@ -2,22 +2,21 @@
 
 namespace Core\Models;
 
-use Core\Database\DB;
-use PDO;
+use Core\Database\QueryBuilder;
+use Core\Database\QueryBuilderFactory;
 
 // TODO убрать прямое использование conn
 class Model
 {
     protected string $tableName;
-    protected $conn;
     protected array $attributes = [];
+    protected string $dbConn = 'default';
 
-    public function __construct($tableName = null)
+    public function __construct()
     {
         if (!isset($this->tableName)) {
             $this->tableName = $tableName ?? static::makeTableNameFromStaticClass();
         }
-        $this->conn = DB::getConnection();
     }
 
     private static function makeTableNameFromStaticClass(): string
@@ -28,13 +27,19 @@ class Model
 
     public function getAll()
     {
-        return $this->conn->select("SELECT * from " . $this->tableName);
+        return $this->newBuilder()->select();
     }
 
     public function save()
     {
-        $query = "INSERT INTO " . $this->tableName . " (body) VALUES ('" . implode("','", $this->attributes) . "')";
-        $stmt = $this->conn->query($query);
+        $builder = $this->newBuilder();
+        $builder->insert($this->attributes);
+    }
+
+    public function newBuilder(): QueryBuilder
+    {
+        $builder = new QueryBuilderFactory();
+        return $builder->createBuilder($this->dbConn)->setTable($this->tableName);
     }
 
     public function __set($key, $value)
