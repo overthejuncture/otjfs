@@ -2,23 +2,16 @@
 
 namespace Core\Requests;
 
-use Core\Singleton;
-
 class Request
 {
     protected static string $method;
     protected static string $uri;
 
-    protected function __construct()
+    public  function __construct()
     {
         $serv = $_SERVER;
         static::$method = mb_strtolower($serv['REQUEST_METHOD']);
         static::$uri = $serv['REQUEST_URI'];
-    }
-
-    public static function capture(): Request
-    {
-        return new static();
     }
 
     /**

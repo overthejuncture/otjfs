@@ -9,7 +9,7 @@ abstract class Singleton
      */
     private static $instance = [];
 
-    public function __construct(...$params) {}
+    public function __construct() {}
 
     /**
      * @return static

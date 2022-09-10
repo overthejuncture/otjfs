@@ -4,15 +4,14 @@ namespace Controllers;
 
 use Core\Models\Todo;
 use Core\Responses\ViewResponse;
-use Core\Singleton;
 
 class TodosController extends BaseController
 {
     /**
      * @param Todo $todos
-     * @return Singleton|ViewResponse
+     * @return ViewResponse
      */
-    public function index(Todo $todos): \Core\Singleton|\Core\Responses\ViewResponse
+    public function index(Todo $todos): ViewResponse
     {
         $todo = new Todo();
         $todo->body = 'asdf';

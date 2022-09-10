@@ -15,11 +15,11 @@ class Model
     public function __construct()
     {
         if (!isset($this->tableName)) {
-            $this->tableName = $tableName ?? static::makeTableNameFromStaticClass();
+            $this->tableName = $this->makeTableNameFromStaticClass();
         }
     }
 
-    private static function makeTableNameFromStaticClass(): string
+    private function makeTableNameFromStaticClass(): string
     {
         $array = explode('\\', static::class);
         return mb_strtolower(array_pop($array)) . 's';

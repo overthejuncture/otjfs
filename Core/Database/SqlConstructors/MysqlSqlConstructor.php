@@ -3,6 +3,7 @@
 namespace Core\Database\SqlConstructors;
 
 use Core\Column;
+use Exception;
 
 class MysqlSqlConstructor extends SqlConstructor
 {
