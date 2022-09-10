@@ -8,8 +8,6 @@ interface DiInterface
 
     public function resolve(string $abstract);
 
-    public function getDependencies(string $class);
-
     public function getClassMethodDependencies(string $class, string $method);
 
 }

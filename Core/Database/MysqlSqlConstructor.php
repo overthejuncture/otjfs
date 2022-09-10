@@ -2,7 +2,6 @@
 
 namespace Core\Database;
 
-use _PHPStan_ccec86fc8\Nette\Neon\Exception;
 use Core\Column;
 
 class MysqlSqlConstructor extends SqlConstructor
@@ -10,6 +9,12 @@ class MysqlSqlConstructor extends SqlConstructor
     static array $typesOfColumns = [
         "text" => "VARCHAR(%s)"
     ];
+
+    public function insert($table, $values)
+    {
+        $sql = "insert into $table (body, done) values ('asdf', '1')";
+        return $sql;
+    }
 
     /** TODO custom and default primary keys */
     public static function createTableSql(string $title): string
@@ -39,6 +44,11 @@ class MysqlSqlConstructor extends SqlConstructor
         throw new Exception("No function for column type " . $column->getType());
     }
 
+    /**
+     * @uses modifierNullable
+     * @param Column $column
+     * @return string
+     */
     protected static function columnParamsToSql(Column $column): string
     {
         $sql = " ";

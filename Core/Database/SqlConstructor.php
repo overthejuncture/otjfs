@@ -2,6 +2,8 @@
 
 namespace Core\Database;
 
-class SqlConstructor
+use Core\Interfaces\SqlConstructorInterface;
+
+abstract class SqlConstructor implements SqlConstructorInterface
 {
 }

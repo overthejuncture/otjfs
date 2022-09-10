@@ -2,21 +2,15 @@
 
 namespace Core\Database;
 
-use PDO;
 use function dd;
 
 class DB
 {
-    /* TODO what if multiple databases */
-    private static PDO $pdo;
-
-    public static function getConnection(): PDO
+    public static function getConnection()
     {
         $config = config('db');
-        if (!isset(static::$pdo)) {
-            static::$pdo = new PDO("{$config['connection']}:host={$config['host']};dbname={$config['db']};charset=utf8mb4", $config['user'], $config['password']);
-        }
-        return static::$pdo;
+        $conn = new ConnectionFactory();
+        return $conn->createConnection($config);
     }
 
     /**
@@ -35,7 +29,7 @@ class DB
     private static function runSqlArray(array $sqlArray)
     {
         foreach ($sqlArray as $sql) {
-            dd(static::$pdo->query($sql), false);
+            dd(static::getConnection()->query($sql), false);
         }
     }
 

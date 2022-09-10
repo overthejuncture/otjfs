@@ -37,6 +37,13 @@ function dd($var, $die = true): void
         die();
 }
 
+function ddd(...$vars)
+{
+    foreach ($vars as $var) {
+        dd($var, false);
+    }
+}
+
 function mdd($die = true)
 {
     dd(memory_get_usage() / 1024 . 'kb', $die);

@@ -5,10 +5,11 @@ namespace Core\Models;
 use Core\Database\DB;
 use PDO;
 
+// TODO убрать прямое использование conn
 class Model
 {
     protected string $tableName;
-    protected PDO $conn;
+    protected $conn;
     protected array $attributes = [];
 
     public function __construct($tableName = null)
@@ -27,8 +28,7 @@ class Model
 
     public function getAll()
     {
-        $stmt = $this->conn->query("SELECT * from " . $this->tableName);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->conn->select("SELECT * from " . $this->tableName);
     }
 
     public function save()
