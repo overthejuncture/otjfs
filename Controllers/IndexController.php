@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-class Index
+class IndexController extends BaseController
 {
     public function json()
     {
