@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use Core\Column;
+use Core\Database\SqlConstructors\MysqlSqlConstructor;
 
 /**
  * Class for keeping commands with database.

@@ -1,8 +1,9 @@
 <?php
 
-namespace Core\Database;
+namespace Core\Database\SqlConstructors;
 
 use Core\Column;
+use Core\Database\Exception;
 
 class MysqlSqlConstructor extends SqlConstructor
 {

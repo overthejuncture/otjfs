@@ -4,7 +4,7 @@ namespace Core;
 
 use Core\Database\Blueprint;
 use Core\Database\DB;
-use Core\Database\MysqlSqlConstructor;
+use Core\Database\SqlConstructors\MysqlSqlConstructor;
 use Exception;
 
 class Schema

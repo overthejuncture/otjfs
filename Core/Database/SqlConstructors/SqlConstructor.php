@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Database;
+namespace Core\Database\SqlConstructors;
 
 use Core\Interfaces\SqlConstructorInterface;
 

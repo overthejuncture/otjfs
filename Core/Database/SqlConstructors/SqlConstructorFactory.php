@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Database;
+namespace Core\Database\SqlConstructors;
 
 class SqlConstructorFactory
 {
@@ -12,6 +12,5 @@ class SqlConstructorFactory
             default:
                 throw new \Exception("No sql constructor for driver: $driver");
         }
-
     }
 }

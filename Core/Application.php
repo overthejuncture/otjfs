@@ -3,8 +3,7 @@
 namespace Core;
 
 use Core\Container\ServiceContainer;
-use Core\Database\ConnectionFactory;
-use Core\Database\SqlConstructorFactory;
+use Core\Database\SqlConstructors\SqlConstructorFactory;
 use Core\Interfaces\SqlConstructorInterface;
 use Core\Routing\Router;
 use Core\Routing\RouterInterface;

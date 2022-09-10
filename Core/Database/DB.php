@@ -2,6 +2,7 @@
 
 namespace Core\Database;
 
+use Core\Database\Connection\ConnectionFactory;
 use function dd;
 
 class DB
