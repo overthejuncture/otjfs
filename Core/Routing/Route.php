@@ -27,6 +27,11 @@ class Route
         self::$get[$uri] = $action;
     }
 
+    public static function post($uri, array|Closure $action)
+    {
+        self::$post[$uri] = $action;
+    }
+
     public static function isControllerAction($callable): bool
     {
         return is_array($callable);
@@ -36,6 +41,7 @@ class Route
     {
         return [
             'get' => self::$get,
+            'post' => self::$post,
         ];
     }
 

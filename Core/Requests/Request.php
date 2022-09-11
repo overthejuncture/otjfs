@@ -4,29 +4,40 @@ namespace Core\Requests;
 
 class Request
 {
-    protected static string $method;
-    protected static string $uri;
+    private array $data;
 
-    public  function __construct()
+    final public function __construct(GlobalRequest $request)
     {
-        $serv = $_SERVER;
-        static::$method = mb_strtolower($serv['REQUEST_METHOD']);
-        static::$uri = $serv['REQUEST_URI'];
+        $this->fillDataFromGlobalRequest($request);
+        $this->initializeRules();
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod(): string
+    protected function rules(): array
     {
-        return static::$method;
+        return [];
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUri()
+    private function initializeRules()
     {
-        return static::$uri;
+        $rules = $this->rules();
+        // Пока только проверка на наличие
+        foreach ($rules as $key => $rule) {
+            if ($rule === 'required' && isset($this->data[$key])) {
+                unset($rules[$key]);
+            }
+        }
+        if (count($rules) > 0) {
+            throw new \Exception('Not all parameters are present in request');
+        }
+    }
+
+    private function fillDataFromGlobalRequest(GlobalRequest $request)
+    {
+        $this->data = $request->getData();
+    }
+
+    public function get(string $name)
+    {
+        return $this->data[$name] ?? null;
     }
 }

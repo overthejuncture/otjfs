@@ -3,7 +3,7 @@
 namespace Core;
 
 use Core\Container\ServiceContainer;
-use Core\Requests\Request;
+use Core\Requests\GlobalRequest;
 use Core\Routing\RouteDispatcher;
 use Core\Routing\RouterInterface;
 
@@ -18,7 +18,7 @@ class Kernel
         $this->router = $router;
     }
 
-    public function handle(Request $request): void
+    public function handle(GlobalRequest $request): void
     {
         $uri = $request->getUri();
         $method = $request->getMethod();
@@ -26,6 +26,8 @@ class Kernel
         $action = $this->router->match($uri, $method);
         $dispatcher = new RouteDispatcher($this->container, $action);
         $response = $dispatcher->dispatch();
-        $response->send();
+        if ($response) {
+            $response->send();
+        }
     }
 }

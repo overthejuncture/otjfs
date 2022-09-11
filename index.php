@@ -8,10 +8,13 @@ require_once './helpers.php';
 
 use Core\Application;
 use Core\Kernel;
-use Core\Requests\Request;
+use Core\Requests\GlobalRequest;
 
 $app = new Application();
 
+$request = new GlobalRequest();
+$app->instance(GlobalRequest::class, $request);
+
 /** @var Kernel $kernel */
 $kernel = $app->resolve(Kernel::class);
-$kernel->handle($request = new Request());
+$kernel->handle($request);

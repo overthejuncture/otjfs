@@ -11,6 +11,7 @@ use ReflectionException;
 class ServiceContainer implements ContainerInterface, DiInterface
 {
     private array $binds;
+    private array $instances;
 
     /**
      * @throws ContainerException
@@ -37,11 +38,19 @@ class ServiceContainer implements ContainerInterface, DiInterface
         $this->binds[$abstract] = $concrete;
     }
 
+    public function instance(string $abstract, Object $class)
+    {
+        $this->instances[$abstract] = $class;
+    }
+
     /**
      * @throws ReflectionException
      */
     public function resolve(string $abstract)
     {
+        if (isset($this->instances[$abstract])) {
+            return $this->instances[$abstract];
+        }
         if (!isset($this->binds[$abstract])) {
             return $this->build($abstract);
         }
