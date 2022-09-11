@@ -19,4 +19,9 @@ class TodosController extends BaseController
         $todo->save();
         return view('todos/index', ['data' => $todos->getAll()]);
     }
+
+    public function create()
+    {
+        return view('todos/create');
+    }
 }

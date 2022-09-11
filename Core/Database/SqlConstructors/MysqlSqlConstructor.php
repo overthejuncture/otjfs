@@ -7,9 +7,13 @@ use Exception;
 
 class MysqlSqlConstructor extends SqlConstructor
 {
-    public function insert($table, $values)
+    public function insert($table, $data)
     {
-        $sql = "insert into $table (body, done) values ('asdf', '1')";
+        $sql = "insert into $table ("
+            . implode(', ', array_keys($data))
+            . ") values ('"
+            . implode('\', \'', array_values($data))
+            . "')";
         return $sql;
     }
 
@@ -49,7 +53,6 @@ class MysqlSqlConstructor extends SqlConstructor
     }
 
     /**
-     * @uses modifierNullable
      * @param Column $column
      * @return string
      */

@@ -16,8 +16,13 @@ class Connection
 
     public function insert($sql)
     {
-        $statement = $this->conn->prepare($sql);
-        $statement->execute();
+        try {
+            $statement = $this->conn->prepare($sql);
+            $statement->execute();
+        } catch (\Exception $e) {
+            dd($sql, false);
+            dd($e->getMessage());
+        }
     }
 
     public function select($sql)

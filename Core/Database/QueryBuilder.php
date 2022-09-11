@@ -19,7 +19,7 @@ class QueryBuilder
 
     public function insert($values)
     {
-        $sql = $this->constructor->insert($this->table, $values);
+        $sql = $this->constructor->insert($this->table, $this->parseValues($values));
         $this->conn->insert($sql);
     }
 
@@ -27,6 +27,16 @@ class QueryBuilder
     {
         $sql = $this->constructor->select($this->table);
         return $this->conn->select($sql);
+    }
+
+    public function parseValues($values)
+    {
+        foreach ($values as $key => $value) {
+            if ($value === false) {
+                $values[$key] = '0';
+            }
+        }
+        return $values;
     }
 
     public function setTable(string $table)
