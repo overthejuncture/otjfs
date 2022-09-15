@@ -52,6 +52,11 @@ class Blueprint
         return $this->columns;
     }
 
+    public function getTablename()
+    {
+        return $this->tableName;
+    }
+
     public function toSql(): array
     {
         $sql = [];

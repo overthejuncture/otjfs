@@ -25,7 +25,7 @@ class Application extends ServiceContainer
         });
         $this->bind(SqlConstructorInterface::class, function ($app) {
             $config = config('db');
-            return SqlConstructorFactory::createConstructor($config['connection']);
+            return (new SqlConstructorFactory)->createConstructor($config['connection']);
         });
     }
 }

@@ -4,7 +4,7 @@ namespace Core\Database\SqlConstructors;
 
 class SqlConstructorFactory
 {
-    public static function createConstructor($driver)
+    public function createConstructor($driver)
     {
         switch ($driver) {
             case 'mysql':

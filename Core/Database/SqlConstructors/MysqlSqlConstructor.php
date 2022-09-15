@@ -25,7 +25,7 @@ class MysqlSqlConstructor extends SqlConstructor
     }
 
     /** TODO custom and default primary keys */
-    public static function createTableSql(string $title): string
+    public function createTableSql(string $title): string
     {
         return "CREATE TABLE $title (id int NOT NULL auto_increment, CONSTRAINT {$title}_pk PRIMARY KEY (id));";
     }

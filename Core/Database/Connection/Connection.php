@@ -31,4 +31,10 @@ class Connection
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function query(string|array $sql)
+    {
+        $statement = $this->conn->prepare($sql);
+        return $statement->execute();
+    }
 }

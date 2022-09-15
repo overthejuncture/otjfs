@@ -13,10 +13,6 @@ class TodosController extends BaseController
      */
     public function index(Todo $todos): ViewResponse
     {
-        $todo = new Todo();
-        $todo->body = 'asdf';
-        $todo->done = '1';
-        $todo->save();
         return view('todos/index', ['data' => $todos->getAll()]);
     }
 
