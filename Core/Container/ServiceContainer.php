@@ -10,7 +10,14 @@ use ReflectionException;
 
 class ServiceContainer implements ContainerInterface, DiInterface
 {
+    /**
+     * @var array<string, object> $binds
+     */
     private array $binds;
+
+    /**
+     * @var array<string, object> $instances
+     */
     private array $instances;
 
     /**
@@ -33,12 +40,12 @@ class ServiceContainer implements ContainerInterface, DiInterface
      * @param string $abstract
      * @param class-string|Closure $concrete
      */
-    public function bind(string $abstract, string|Closure $concrete)
+    public function bind(string $abstract, string|Closure $concrete): void
     {
         $this->binds[$abstract] = $concrete;
     }
 
-    public function instance(string $abstract, Object $class)
+    public function instance(string $abstract, Object $class): void
     {
         $this->instances[$abstract] = $class;
     }
@@ -46,7 +53,7 @@ class ServiceContainer implements ContainerInterface, DiInterface
     /**
      * @throws ReflectionException
      */
-    public function resolve(string $abstract)
+    public function resolve(string $abstract): object
     {
         if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];
@@ -63,7 +70,7 @@ class ServiceContainer implements ContainerInterface, DiInterface
     /**
      * @throws ReflectionException
      */
-    protected function build($abstract)
+    protected function build(string $abstract): object
     {
         $constructorDeps = $this->getClassConstructorDependencies($abstract);
         $params = [];
@@ -73,7 +80,7 @@ class ServiceContainer implements ContainerInterface, DiInterface
         return new $abstract(...$params);
     }
 
-    public function resolveMethod($classInstance, $method)
+    public function resolveMethod(object $classInstance, string $method): mixed
     {
         $deps = $this->getClassMethodDependencies($classInstance::class, $method);
         $params = [];
@@ -84,6 +91,8 @@ class ServiceContainer implements ContainerInterface, DiInterface
     }
 
     /**
+     * @return array<string>
+     *
      * @throws ReflectionException
      */
     protected function getClassConstructorDependencies(string $class): array
@@ -97,6 +106,8 @@ class ServiceContainer implements ContainerInterface, DiInterface
     }
 
     /**
+     * @return array<string>
+     *
      * @throws ReflectionException
      */
     public function getClassMethodDependencies(string $class, string $method): array
